@@ -8,14 +8,14 @@ const NavBar = () => {
                     <img src="..\assets\images\Logo.svg" className="h-16" alt="Logo" />
                 </div>
 
-                <div className="flex flex-wrap items-center justify-end gap-4 text-blue">
+                <div className="flex flex-wrap items-center justify-end gap-3 text-blue">
 
                     <div className="relative flex items-center">
                         <input
                             type="text"
-                            className="rounded-full shadow-inner shadow-slate-400 h-10 w-128 rounded- border border-blue px-3 py-2 bg-cream text-blue focus:outline-none focus:border-blue placeholder:text-blue placeholder:text-xs"
+                            className="rounded-full font-jaldi shadow-inner shadow-slate-400 h-10 w-128 rounded- border border-blue px-5 py-3 bg-cream text-blue focus:outline-none focus:border-blue placeholder:text-blue placeholder:text-s"
                             placeholder="Search..." />
-                        <div className="absolute inset-y-0 right-0 flex items-center pr-3">
+                        <div className="absolute inset-y-0 right-0 flex items-center pr-4">
                             <img className="h-4" src="..\assets\images\Glass-icon.svg" />
                         </div>
                     </div>
@@ -31,7 +31,7 @@ const NavBar = () => {
             </div>
         </nav>
     )
-};
+}
 
 export default NavBar;
 
