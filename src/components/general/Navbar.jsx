@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const NavBar = () => {
     return (
-        <nav className="font-jaldi font-normal bg-white ml-9 mr-9 mt-4 p-4 border-b-2 border-blue">
+        <nav className="font-jaldi font-normal bg-white ml-14 mr-14 mt-4 p-4 border-b-2 border-blue">
             <div className="flex flex-wrap items-center justify-between text-white">
                 <div>
                     <img src="..\assets\images\Logo.svg" className="h-16" alt="Logo" />
