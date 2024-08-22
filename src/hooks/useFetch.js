@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { API_URL } from "../config";
 
-const useFetch = (endpoint, options = {}) => {
+const useFetch = (endpoint, options) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
