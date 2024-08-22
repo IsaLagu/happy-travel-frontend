@@ -1,5 +1,5 @@
 import { useState } from "react";
-import PropTypes from 'prop-types';
+import propTypes from 'prop-types';
 
 const Pagination = ({ totalPages }) => {
     const [currentPage, setCurrentPage] = useState (1);
@@ -38,7 +38,7 @@ const Pagination = ({ totalPages }) => {
 };
 
 Pagination.PropTypes = {
-    totalPages: PropTypes.number.isRequired
+    totalPages: propTypes.number.isRequired
 }
 
 export default Pagination
