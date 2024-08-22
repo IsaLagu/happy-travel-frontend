@@ -16,6 +16,9 @@
 
 export default DestinationCard*/
 
+import PropTypes from "prop-types";
+
+
 const DestinationCard = ({title, location, imageUrl}) => {
     return (
         <div className="flex flex-col bg-cream rounded-[20px] w-[300px] h-[375px]">
@@ -30,6 +33,13 @@ const DestinationCard = ({title, location, imageUrl}) => {
 
         </div>
     )
+}
+
+DestinationCard.propTypes = {
+    title: PropTypes.string,
+    location: PropTypes.string,
+    imageUrl: PropTypes.string,
+
 }
 
 export default DestinationCard
