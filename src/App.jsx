@@ -1,7 +1,8 @@
+import SignUp from "./components/signUp/SignUp";
 import "./index.css";
 
 function App() {
-  return <h1 className="text-3xl text-center font-bold underline">Hello world!</h1>;
+  return <SignUp></SignUp>;
 }
 
 export default App;
