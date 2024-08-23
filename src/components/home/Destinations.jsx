@@ -2,9 +2,9 @@ import DestinationCard from "./DestinationCard"
 import useGet from "../../hooks/useGet"
 
 const Destinations = () => {
-    const { data: destinations, isLoading, error } =  useGet("/destinations")
+    const { data: destinations, loading, error } =  useGet("/destinations")
 
-    if (isLoading) {
+    if (loading) {
         return <div className="text-blue font-bold "> Loading </div>
         
     }

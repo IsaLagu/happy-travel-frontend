@@ -1,4 +1,3 @@
-import ButtonsForm from "../components/form/ButtonsForm";
 import Destinations from "../components/home/Destinations";
 import Pagination from "../components/home/Pagination";
 
