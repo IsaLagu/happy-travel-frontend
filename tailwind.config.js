@@ -11,6 +11,9 @@ export default {
         },
         fontFamily: {
             jaldi: ["Jaldi", "sans-serif"],
+        },
+        width:{
+          '128': '200px',
         }
     },
   },
