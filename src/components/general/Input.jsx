@@ -1,17 +1,14 @@
 import React from "react";
 
-const Input = ({ value, type = "text", required, id, name, placeholder, className }) => {
+const Input = ({ text, placeholder }) => {
   return (
     <input
-      value={value}
-      type={type}
-      name={name}
-      id={id}
-      className={`h-10 font-light text-xl text-blue bg-cream shadow-inner shadow-slate-400 rounded-full border-gray-300 placeholder-blue block p-2.5${
-        className ? " " + className : ""
-      }`}
+      type={text}
+      name={text}
+      id={text}
+      className="font-jaldi bg-cream shadow-inner shadow-slate-400 h-10 w-128 rounded-full border-gray-300 text-sm placeholder-blue block w-full p-2.5 "
       placeholder={placeholder}
-      required={required}
+      required
     />
   );
 };
