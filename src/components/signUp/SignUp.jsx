@@ -1,34 +1,75 @@
+import { useState } from "react";
 import Input from "../general/Input";
 
 const SignUp = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const user = { name, email, password };
+    console.log(user);
+  };
+
   return (
-    <div className="flex justify-center items-center">
-      <div className="w-full max-w-sm font-jaldi p-4 bg-white border-4 border-cream rounded-lg">
-        <form className="space-y-6" action="#">
-          <h5 className="text-xl text-center pb-2 font-bold text-red border-red border-b-2 ">Registro de usuario</h5>
-          <div>
-            <label htmlFor="name" className="block mb-2 text-base font-bold text-blue">
-              Nombre
-            </label>
-            <Input text="nombre" placeholder="Escribe tu nombre" />
-          </div>
-          <div>
-            <label htmlFor="email" className="block mb-2 text-base font-bold text-blue">
-              E-mail
-            </label>
-            <Input text="email" placeholder="Escribe tu email" />
-          </div>
-          <div>
-            <label htmlFor="password" className="block mb-2 text-base font-bold text-blue">
-              Contraseña
-            </label>
-            <Input text="contraseña" placeholder="Escribe tu contaseña" />
-          </div>
-          <div className="text-base font-bold text-blue text-center">
-            ¿Ya tienes cuenta? Accede {""}
-            <a href="#" className="text-green font-bold hover:underline">
-              aquí
-            </a>
+    <div className="flex justify-center mt-20">
+      <div className="w-[370px] h-[487px] px-[35px] bg-white border-4 border-cream rounded-2xl">
+        <form action="#">
+          <h5 className="text-2xl text-center pt-[10px] font-bold text-red border-red border-b-2 mb-[22px] pb-2">
+            Registro de usuario
+          </h5>
+          <div className="flex flex-col gap-[34px]">
+            <div>
+              <label htmlFor="name" className="block mb-2 text-xl font-semibold text-blue">
+                Nombre
+              </label>
+              <Input
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="w-full"
+                name="name"
+                placeholder="Escribe tu nombre"
+                required="required"
+              />
+            </div>
+            <div>
+              <label htmlFor="email" className="block mb-2 text-xl font-semibold text-blue">
+                E-Mail
+              </label>
+              <Input
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full"
+                name="email"
+                placeholder="Escribe tu email"
+                required="required"
+              />
+            </div>
+            <div>
+              <label htmlFor="password" className="block mb-2 text-xl font-semibold text-blue">
+                Contraseña
+              </label>
+              <Input
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full"
+                name="password"
+                placeholder="Escribe tu contaseña"
+              />
+            </div>
+            <button
+              type="button"
+              className="text-white bg-blue focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 focus:outline-none"
+              onClick={handleSubmit}
+            >
+              Aceptar
+            </button>
+            <div className="text-xl font-semibold text-blue text-center mt-[-30px]">
+              ¿Ya tienes cuenta? Accede {""}
+              <a href="#" className="text-green font-semibold hover:underline">
+                aquí
+              </a>
+            </div>
           </div>
         </form>
       </div>
