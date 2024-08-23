@@ -9,7 +9,7 @@ const CreateDestination = () => {
     const [why, setWhy] = useState("");
     const handleSubmit = (e) => {
         e.preventDefault();
-        const user = { name, email, password };
+        const user = { title, location, image, why };
         console.log(user);
     };
 
