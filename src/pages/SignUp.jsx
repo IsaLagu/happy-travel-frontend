@@ -1,5 +1,6 @@
 import { useState } from "react";
-import Input from "../general/Input";
+import Input from "../components/general/Input";
+import ButtonsForm from "../components/form/ButtonsForm";
 
 const SignUp = () => {
   const [name, setName] = useState("");
@@ -12,15 +13,15 @@ const SignUp = () => {
   };
 
   return (
-    <div className="flex justify-center mt-20">
+    <div className="flex justify-center mt-12">
       <div className="w-[370px] h-[487px] px-[35px] bg-white border-4 border-cream rounded-2xl">
         <form action="#">
           <h5 className="text-2xl text-center pt-[10px] font-bold text-red border-red border-b-2 mb-[22px] pb-2">
             Registro de usuario
           </h5>
-          <div className="flex flex-col gap-[34px]">
+          <div className="flex flex-col gap-[30px]">
             <div>
-              <label htmlFor="name" className="block mb-2 text-xl font-semibold text-blue">
+              <label htmlFor="name" className="block mb-1 text-xl font-semibold text-blue">
                 Nombre
               </label>
               <Input
@@ -33,7 +34,7 @@ const SignUp = () => {
               />
             </div>
             <div>
-              <label htmlFor="email" className="block mb-2 text-xl font-semibold text-blue">
+              <label htmlFor="email" className="block mb-1 text-xl font-semibold text-blue">
                 E-Mail
               </label>
               <Input
@@ -46,7 +47,7 @@ const SignUp = () => {
               />
             </div>
             <div>
-              <label htmlFor="password" className="block mb-2 text-xl font-semibold text-blue">
+              <label htmlFor="password" className="block mb-1 text-xl font-semibold text-blue">
                 Contraseña
               </label>
               <Input
@@ -57,14 +58,8 @@ const SignUp = () => {
                 placeholder="Escribe tu contaseña"
               />
             </div>
-            <button
-              type="button"
-              className="text-white bg-blue focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 focus:outline-none"
-              onClick={handleSubmit}
-            >
-              Aceptar
-            </button>
-            <div className="text-xl font-semibold text-blue text-center mt-[-30px]">
+            <ButtonsForm />
+            <div className="text-xl font-semibold text-blue text-center mt-[-20px]">
               ¿Ya tienes cuenta? Accede {""}
               <a href="#" className="text-green font-semibold hover:underline">
                 aquí
