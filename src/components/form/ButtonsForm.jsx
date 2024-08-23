@@ -1,7 +1,6 @@
 import Button from "../general/Button";
-import PropTypes from "prop-types";
 import useCrud from "../../hooks/useCrud";
-import react from "@vitejs/plugin-react-swc";
+import React from "react";
 
 
 const ButtonsForm = ({ operationType, data }) => {
@@ -15,7 +14,7 @@ const ButtonsForm = ({ operationType, data }) => {
         alert("Operación cancelada")
     }
 
-    react.useEffect(() => {
+    React.useEffect(() => {
         if (!loading && error) {
             alert(error)
         } else if (!loading) {
@@ -33,10 +32,6 @@ const ButtonsForm = ({ operationType, data }) => {
     )
 };
 
-ButtonsForm.propTypes = {
-    operationType: PropTypes.string,
-    data: PropTypes.string,
-};
 
 export default ButtonsForm
 
