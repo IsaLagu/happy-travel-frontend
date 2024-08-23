@@ -1,7 +1,6 @@
-import { useState } from "react";
+import React from "react";
 
-const Pagination = ({ totalPages }) => {
-    const [currentPage, setCurrentPage] = useState(1);
+const Pagination = ({ totalPages, currentPage, setCurrentPage }) => {
 
     const previousPage = () => {
         if (currentPage > 1) {
@@ -16,8 +15,8 @@ const Pagination = ({ totalPages }) => {
     };
 
     return (
-        <div className="bg-white flex justify-center w-full mt-5">
-            <div className="sticky bottom-0 flex items-center justify-center gap-4 mt-4 mb-10">
+        <div className="bg-white flex justify-center w-full">
+            <div className="sticky bottom-0 flex items-center justify-center gap-4 mt-2 mb-10">
                 <button
                     onClick={previousPage}
                     className="h-[40px] w-[60px] pb-8 items-center rounded-full bg-blue text-white text-3xl"
@@ -30,6 +29,7 @@ const Pagination = ({ totalPages }) => {
                 <button
                     onClick={nextPage}
                     className="h-[40px] w-[60px] pb-8 items-center rounded-full bg-blue text-white text-3xl"
+                    disabled={currentPage === totalPages}
                 >
                     ⪢
                 </button>
