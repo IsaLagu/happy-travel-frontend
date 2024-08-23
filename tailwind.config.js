@@ -15,6 +15,9 @@ export default {
       fontSize: {
         "2xl": "25px",
       },
+      width: {
+        128: "200px",
+      },
     },
   },
   plugins: [],
