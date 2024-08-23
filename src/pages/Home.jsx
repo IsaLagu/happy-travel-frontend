@@ -7,7 +7,7 @@ const Home = () => {
         <div>
             <div >
                 <Destinations />
-                <ButtonsForm/>
+                <ButtonsForm />
             </div>
             <div>
                 <Pagination className="absolute bottom-0 flex items-end justify-center p-6" />
