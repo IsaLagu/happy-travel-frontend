@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import Input from "../components/general/Input";
 import Button from "../components/general/Button";
 import usePost from "../hooks/usePost";
+import useUser from "../hooks/useUser";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
   const [name, setName] = useState("");
@@ -9,16 +11,19 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
 
   const { error, executePost, data } = usePost("/auth/register");
+  const { setToken } = useUser();
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const user = { name, email, password };
-    console.log(user);
     executePost({ name, email, password });
   };
 
   useEffect(() => {
-    console.log("Data", data);
+    if (data) {
+      setToken(data.token);
+      navigate("/");
+    }
   }, [data]);
 
   return (
