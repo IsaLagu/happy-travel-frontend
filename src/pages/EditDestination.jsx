@@ -2,7 +2,7 @@ import { useState } from "react";
 import Input from "../components/general/Input";
 import ButtonsForm from "../components/form/ButtonsForm";
 
-const CreateDestination = () => {
+const EditDestination = () => {
     const [title, setTitle] = useState("");
     const [location, setLocation] = useState("");
     const [image, setImage] = useState("");
@@ -18,7 +18,7 @@ const CreateDestination = () => {
             <div className="w-[733px] h-[509px] px-[35px] bg-white border-4 border-cream rounded-2xl">
                 <form action="#">
                     <h5 className="text-2xl text-center pt-[10px] font-bold text-red border-red border-b-2 mb-[22px] pb-2">
-                        Crear destino
+                        Editar destino
                     </h5>
                     <div className="flex flex-row gap-10">
                         <div className="flex flex-col gap-[30px] items-center">
@@ -93,4 +93,4 @@ const CreateDestination = () => {
     );
 };
 
-export default CreateDestination;
+export default EditDestination;
