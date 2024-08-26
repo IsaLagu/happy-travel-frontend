@@ -1,22 +1,28 @@
 import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 import Input from "../components/general/Input";
 import Button from "../components/general/Button";
 import usePost from "../hooks/usePost";
 import useUser from "../hooks/useUser";
 import { useNavigate } from "react-router-dom";
+import { signUpSchema } from "../hooks/validationSchemas";
 
 const SignUp = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(signUpSchema),
+  });
 
   const { error, executePost, data } = usePost("/auth/register");
   const { setToken } = useUser();
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    executePost({ name, email, password });
+  const onSubmit = (formData) => {
+    executePost(formData);
   };
 
   useEffect(() => {
@@ -24,7 +30,7 @@ const SignUp = () => {
       setToken(data.token);
       navigate("/");
     }
-  }, [data]);
+  }, [data, setToken, navigate]);
 
   return (
     <div className="flex justify-center mt-12">
@@ -38,52 +44,41 @@ const SignUp = () => {
               <label htmlFor="name" className="block mb-1 text-xl font-semibold text-blue">
                 Nombre
               </label>
-              <Input
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                className="w-full"
-                name="name"
-                placeholder="Escribe tu nombre"
-                required="required"
-              />
+              <Input {...register("name")} className="w-full" name="name" placeholder="Escribe tu nombre" />
+              {errors.name && <p className="text-red-500 text-sm">{errors.name.message}</p>}
             </div>
             <div>
               <label htmlFor="email" className="block mb-1 text-xl font-semibold text-blue">
                 E-Mail
               </label>
-              <Input
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full"
-                name="email"
-                placeholder="Escribe tu email"
-                required="required"
-              />
+              <Input {...register("email")} className="w-full" name="email" placeholder="Escribe tu email" />
+              {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
             </div>
             <div>
               <label htmlFor="password" className="block mb-1 text-xl font-semibold text-blue">
                 Contraseña
               </label>
               <Input
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                type="password"
+                {...register("password")}
                 className="w-full"
                 name="password"
-                placeholder="Escribe tu contaseña"
+                placeholder="Escribe tu contraseña"
               />
+              {errors.password && <p className="text-red-500 text-sm">{errors.password.message}</p>}
             </div>
             {error && (
-              <div class="p-1 m-[-25px] text-sm text-center text-red rounded-lg" role="alert">
-                <span class="font-medium">There was an error:</span> {error}
+              <div className="p-1 m-[-25px] text-sm text-center text-red rounded-lg" role="alert">
+                <span className="font-medium">Hubo un error:</span> {error}
               </div>
             )}
             <div className="flex flex-wrap gap-4 justify-center">
-              <Button onClick={handleSubmit} buttonStyle="bg-green" buttonText="Aceptar" />
-              <Button onClick={() => undefined} buttonStyle="bg-red" buttonText="Cancelar" />
+              <Button type="submit" buttonStyle="bg-green" buttonText="Aceptar" />
+              <Button type="button" onClick={() => navigate("/")} buttonStyle="bg-red" buttonText="Cancelar" />
             </div>
             <div className="text-xl font-semibold text-blue text-center mt-[-20px]">
-              ¿Ya tienes cuenta? Accede {""}
-              <a href="#" className="text-green font-semibold hover:underline">
+              ¿Ya tienes cuenta? Accede{" "}
+              <a href="/login" className="text-green font-semibold hover:underline">
                 aquí
               </a>
             </div>

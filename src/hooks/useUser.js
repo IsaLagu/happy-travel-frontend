@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
 
-// Utility function to decode JWT and get user information
 const decodeToken = (token) => {
   try {
     return jwtDecode(token);
@@ -11,12 +10,10 @@ const decodeToken = (token) => {
   }
 };
 
-// Custom hook for managing user authentication
 const useUser = () => {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(() => localStorage.getItem("jwtToken"));
 
-  // Set user information when the token changes
   useEffect(() => {
     if (token) {
       const decodedUser = decodeToken(token);
