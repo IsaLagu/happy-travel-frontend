@@ -44,27 +44,21 @@ const SignUp = () => {
               <label htmlFor="name" className="block mb-1 text-xl font-semibold text-blue">
                 Nombre
               </label>
-              <Input {...register("name")} className="w-full" name="name" placeholder="Escribe tu nombre" />
+              <Input {...register("name")} className="w-full" placeholder="Escribe tu nombre" />
               {errors.name && <p className="text-red-500 text-sm">{errors.name.message}</p>}
             </div>
             <div>
               <label htmlFor="email" className="block mb-1 text-xl font-semibold text-blue">
                 E-Mail
               </label>
-              <Input {...register("email")} className="w-full" name="email" placeholder="Escribe tu email" />
+              <Input {...register("email")} className="w-full" placeholder="Escribe tu email" />
               {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
             </div>
             <div>
               <label htmlFor="password" className="block mb-1 text-xl font-semibold text-blue">
                 Contraseña
               </label>
-              <Input
-                type="password"
-                {...register("password")}
-                className="w-full"
-                name="password"
-                placeholder="Escribe tu contraseña"
-              />
+              <Input type="password" {...register("password")} className="w-full" placeholder="Escribe tu contraseña" />
               {errors.password && <p className="text-red-500 text-sm">{errors.password.message}</p>}
             </div>
             {error && (

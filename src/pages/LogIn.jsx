@@ -25,35 +25,23 @@ const LogIn = () => {
               <label htmlFor="email" className="block mb-1 text-xl font-semibold text-blue">
                 E-Mail
               </label>
-              <Input {...register("email")} className="w-full" name="email" placeholder="Escribe tu email" />
+              <Input {...register("email")} className="w-full" placeholder="Escribe tu email" />
             </div>
             <div>
               <label htmlFor="password" className="block mb-1 text-xl font-semibold text-blue">
                 Contraseña
               </label>
-              <Input
-                type="password"
-                {...register("password")}
-                className="w-full"
-                name="password"
-                placeholder="Escribe tu contraseña"
-              />
+              <Input type="password" {...register("password")} className="w-full" placeholder="Escribe tu contraseña" />
               {errors.password && <p className="text-red-500 text-sm">{errors.password.message}</p>}
             </div>
-            {error && (
+            {/* {error && (
               <div className="p-1 m-[-25px] text-sm text-center text-red rounded-lg" role="alert">
                 <span className="font-medium">Hubo un error:</span> {error}
               </div>
-            )}
+            )} */}
             <div className="flex flex-wrap gap-4 justify-center">
               <Button type="submit" buttonStyle="bg-green" buttonText="Aceptar" />
               <Button type="button" buttonStyle="bg-red" buttonText="Cancelar" />
-            </div>
-            <div className="text-xl font-semibold text-blue text-center mt-[-20px]">
-              ¿Ya tienes cuenta? Accede{" "}
-              <a href="/login" className="text-green font-semibold hover:underline">
-                aquí
-              </a>
             </div>
           </div>
         </form>
