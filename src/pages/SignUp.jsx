@@ -29,7 +29,7 @@ const SignUp = () => {
   return (
     <div className="flex justify-center mt-12">
       <div className="w-[370px] h-[487px] px-[35px] bg-white border-4 border-cream rounded-2xl">
-        <form>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <h5 className="text-2xl text-center pt-[10px] font-bold text-red border-red border-b-2 mb-[22px] pb-2">
             Registro de usuario
           </h5>
