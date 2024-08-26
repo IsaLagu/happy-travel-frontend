@@ -106,8 +106,8 @@ const CreateDestination = () => {
                                     ¿Por qué quieres viajar allí?
                                 </label>
                                 <Input
-                                    
-                                    {...register("why")}className="w-[300px] h-[372px] rounded-xl"
+                                    {...register("why")}
+                                    className="w-[300px] h-[372px] rounded-xl"
                                     name="why"
                                     placeholder="Escribe tus razones..."
                                 />
