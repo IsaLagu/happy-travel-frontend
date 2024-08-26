@@ -7,6 +7,7 @@ import { signUpSchema } from "../hooks/validationSchemas";
 import usePost from "../hooks/usePost";
 import useUser from "../hooks/useUser";
 import { useNavigate } from "react-router-dom";
+import DeleteAlert from "../components/alerts/DeleteAlert";
 
 const CreateDestination = () => {
     const {
