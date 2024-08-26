@@ -1,6 +1,6 @@
 import React, { forwardRef } from "react";
 
-const Input = ({ type = "text", id, className, placeholder, ...rest }) => {
+const Input = forwardRef(({ type = "text", id, className, placeholder, ...rest }, ref) => {
   return (
     <input
       type={type}
@@ -10,9 +10,9 @@ const Input = ({ type = "text", id, className, placeholder, ...rest }) => {
         className ? " " + className : ""
       }`}
       placeholder={placeholder}
-      {...rest} // Esto permite que `register` y otros props pasen al input
+      {...rest}
     />
   );
-};
+});
 
 export default Input;
