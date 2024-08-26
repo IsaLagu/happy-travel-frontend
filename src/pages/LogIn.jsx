@@ -1,11 +1,22 @@
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 import Input from "../components/general/Input";
 import Button from "../components/general/Button";
+import { signUpSchema } from "../hooks/validationSchemas";
 
 const LogIn = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(signUpSchema),
+  });
+
   return (
     <div className="flex justify-center mt-12">
       <div className="w-[370px] h-[385px] px-[35px] bg-white border-4 border-cream rounded-2xl">
-        <form>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <h5 className="text-2xl text-center pt-[10px] font-bold text-red border-red border-b-2 mb-[22px] pb-2">
             Acceso de usuario
           </h5>
@@ -14,14 +25,26 @@ const LogIn = () => {
               <label htmlFor="email" className="block mb-1 text-xl font-semibold text-blue">
                 E-Mail
               </label>
-              <Input className="w-full" name="email" placeholder="Escribe tu email" />
+              <Input {...register("email")} className="w-full" name="email" placeholder="Escribe tu email" />
             </div>
             <div>
               <label htmlFor="password" className="block mb-1 text-xl font-semibold text-blue">
                 Contraseña
               </label>
-              <Input type="password" className="w-full" name="password" placeholder="Escribe tu contraseña" />
+              <Input
+                type="password"
+                {...register("password")}
+                className="w-full"
+                name="password"
+                placeholder="Escribe tu contraseña"
+              />
+              {errors.password && <p className="text-red-500 text-sm">{errors.password.message}</p>}
             </div>
+            {error && (
+              <div className="p-1 m-[-25px] text-sm text-center text-red rounded-lg" role="alert">
+                <span className="font-medium">Hubo un error:</span> {error}
+              </div>
+            )}
             <div className="flex flex-wrap gap-4 justify-center">
               <Button type="submit" buttonStyle="bg-green" buttonText="Aceptar" />
               <Button type="button" buttonStyle="bg-red" buttonText="Cancelar" />
