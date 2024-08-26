@@ -2,7 +2,7 @@
 import * as yup from 'yup';
 
 export const signUpSchema = yup.object().shape({
-  name: yup.string().required('Name is required'),
-  email: yup.string().email('Invalid email format').required('Email is required'),
-  password: yup.string().required('Password is required').min(6, 'Password must be at least 6 characters long'),
+  name: yup.string().required('El campo nombre es obligatorio'),
+  email: yup.string().email('El formato email es invalido').required('El campo email es obligatorio'),
+  password: yup.string().required('La contraseña es obligatoria').min(6, 'La contraseña debe tener al menos 6 caractéres'),
 });
