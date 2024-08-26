@@ -3,7 +3,7 @@ import Input from "../components/general/Input";
 import ButtonsForm from "../components/form/ButtonsForm";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { signUpSchema } from "../hooks/validationSchemas";
+import { createSchema, signUpSchema } from "../hooks/validationSchemas";
 import usePost from "../hooks/usePost";
 import useUser from "../hooks/useUser";
 import { useNavigate } from "react-router-dom";
@@ -15,7 +15,7 @@ const CreateDestination = () => {
         handleSubmit,
         formState: { errors },
     } = useForm({
-        resolver: yupResolver(signUpSchema),
+        resolver: yupResolver(createSchema),
     });
 
     const { error, executePost, data } = usePost("/auth/create-destination")
