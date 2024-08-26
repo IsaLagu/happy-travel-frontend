@@ -71,6 +71,7 @@ const SignUp = () => {
                 Contraseña
               </label>
               <Input
+                type="password"
                 {...register('password')}
                 className="w-full"
                 name="password"
@@ -92,4 +93,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default SignUp; 
