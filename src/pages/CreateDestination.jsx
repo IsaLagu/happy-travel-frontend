@@ -106,14 +106,8 @@ const CreateDestination = () => {
                                     ¿Por qué quieres viajar allí?
                                 </label>
                                 <Input
-<<<<<<< Updated upstream
-                                    value={why}
-                                    onChange={(e) => setWhy(e.target.value)}
-                                    className="w-[300px] h-[372px] rounded-[6px]"
-=======
-                                    {...register("why")}
-                                    className="w-[300px] h-[372px] rounded-xl"
->>>>>>> Stashed changes
+                                    
+                                    {...register("why")}className="w-[300px] h-[372px] rounded-xl"
                                     name="why"
                                     placeholder="Escribe tus razones..."
                                 />
