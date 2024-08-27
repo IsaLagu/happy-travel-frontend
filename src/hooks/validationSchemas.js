@@ -1,5 +1,5 @@
 // src/hooks/validationSchemas.js
-import * as yup from 'yup';
+import * as yup from "yup";
 
 export const signUpSchema = yup.object().shape({
   name: yup.string().required('El campo nombre es obligatorio'),
@@ -11,6 +11,14 @@ export const createSchema = yup.object().shape({
   title: yup.string().required('Este campo es obligatorio'),
   location: yup.string().required('Este campo es obligatorio'),
   why: yup.string().required('Este campo es obligatorio'),
+});
+
+export const loginSchema = yup.object().shape({
+  email: yup.string().email("El formato email es invalido").required("El campo email es obligatorio"),
+  password: yup
+    .string()
+    .required("La contraseña es obligatoria")
+    .min(6, "La contraseña debe tener al menos 6 caractéres"),
 });
 
 export const editSchema = yup.object().shape({

@@ -1,12 +1,8 @@
-import { useState } from "react";
 import useFetch from "./useFetch";
 
 const usePost = (endpoint) => {
-  const [postData, setPostData] = useState(null);
-
   const executePost = (data) => {
-    setPostData(data);
-    fetch();
+    fetch({ body: JSON.stringify(data) });
   };
 
   const { data, loading, error, fetch } = useFetch(
@@ -16,7 +12,6 @@ const usePost = (endpoint) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(postData),
     },
     false
   );
