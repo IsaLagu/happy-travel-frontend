@@ -33,7 +33,7 @@ const LogIn = () => {
   }, [data, setToken, navigate]);
 
   return (
-    <div className="flex justify-center mt-12">
+    <div className="flex justify-center mt-12 p-36">
       <div className="w-[370px] h-[385px] px-[35px] bg-white border-4 border-cream rounded-2xl">
         <form onSubmit={handleSubmit(onSubmit)}>
           <h5 className="text-2xl text-center pt-[10px] font-bold text-red border-red border-b-2 mb-[22px] pb-2">
