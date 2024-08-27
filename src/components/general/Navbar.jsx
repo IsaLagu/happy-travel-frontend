@@ -4,9 +4,8 @@ import useUser from "../../hooks/useUser";
 import Input from "../general/Input";
 
 const NavBar = () => {
-    const { user } = useUser();
+    const { user, clearToken } = useUser();
     const location = useLocation();
-    const navigate = useNavigate();
     const [searchTerm, setSearchTerm] = useState("");
 
     const handleSearch = (e) => {
@@ -17,9 +16,21 @@ const NavBar = () => {
     };
 
     const isHome = location.pathname === '/';
+    const navigate = useNavigate()
+
+    const homeClick = () => { navigate('/') }
+
+    const loginClick = () => { navigate('/login') };
+
+    const createClick = () => { navigate('/create-destination') }
+
+    const logoutClick = () => {
+        clearToken()
+        navigate('/logIn')
+    };
 
     return (
-        <nav className="font-jaldi font-normal bg-white ml-14 mr-14 mt-4 p-4 border-b-2 border-blue">
+        <nav className="font-jaldi font-normal bg-white ml-14 mr-14 mt-4 p-4 border-b-2 border-blue items-center">
             <div className="flex flex-wrap items-center justify-between text-white">
                 <div>
                     <img src="..\assets\images\Logo.svg" className="h-16" alt="Logo" />
@@ -43,26 +54,27 @@ const NavBar = () => {
                         </form>
                     )}
 
-                    <Link to="/">
-                        <img className="h-8" src="..\assets\images\Home-icon.svg" alt="Home Icon" /><Link to="/"></Link>
-                    </Link>
-
+                    <button onClick={homeClick}>
+                        <img className="h-8" src="..\assets\images\Home-icon.svg" />
+                    </button>
                     {!user && (
-                        <Link to="/login">
-                            <img className="h-8" src="..\assets\images\Avatar-icon.svg" alt="Avatar Icon" /><Link to="/"></Link>
-                        </Link>
-                    )}
-
+                        <button onClick={loginClick}>
+                            <img className="h-8" src="..\assets\images\Avatar-icon.svg" />
+                        </button>)}
                     {user && (
-                        <>
-                            <Link to="/create">
-                                <img className="h-8" src="..\assets\images\Create-icon.svg" alt="Create Icon" /><Link to="/"></Link>
-                            </Link>
-                            <button onClick={() => {/* Add logout functionality */}} className="bg-transparent border-none">
-                                <img className="h-8" src="..\assets\images\Logout-icon.svg" alt="Logout Icon" /><Link to="/"></Link>
+                        <div className="flex flex-wrap items-center justify-end gap-2 text-blue">
+                            <button onClick={createClick}>
+                                <img className="h-8" src="..\assets\images\Create-icon.svg" />
+                                <Link to="/create-destination"></Link>
                             </button>
-                        </>
-                    )}
+                            <button onClick={logoutClick}>
+                                <img className="h-8" src="..\assets\images\Logout-icon.svg" />
+                            </button>
+                        </div>
+
+                    )
+                    }
+
                 </div>
             </div>
         </nav>
