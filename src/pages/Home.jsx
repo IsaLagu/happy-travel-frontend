@@ -1,17 +1,3 @@
-/* import Destinations from "../components/home/Destinations";
-import Pagination from "../components/home/Pagination";
-
-const Home = () => {
-    return (
-            <div >
-                <Destinations />
-            </div>
-            
-    )
-};
-
-export default Home */
-
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import DestinationCard from "../components/home/DestinationCard";
