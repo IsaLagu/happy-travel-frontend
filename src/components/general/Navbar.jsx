@@ -1,10 +1,21 @@
+import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import useUser from "../../hooks/useUser";
+import Input from "../general/Input";
 
 const NavBar = () => {
-    const { user, clearToken } = useUser()
-    const location = useLocation()
-    const isHome = location.pathname === '/'
+    const { user, clearToken } = useUser();
+    const location = useLocation();
+    const [searchTerm, setSearchTerm] = useState("");
+
+    const handleSearch = (e) => {
+        e.preventDefault();
+        if (searchTerm.trim()) {
+            navigate(`/?search=${searchTerm}`);
+        }
+    };
+
+    const isHome = location.pathname === '/';
     const navigate = useNavigate()
 
     const homeClick = () => { navigate('/') }
@@ -26,17 +37,21 @@ const NavBar = () => {
                 </div>
 
                 <div className="flex flex-wrap items-center justify-end gap-3 text-blue">
-
                     {isHome && (
-                        <div className="relative flex items-center">
-                            <input
+                        <form onSubmit={handleSearch} className="relative flex items-center">
+                            <Input
                                 type="text"
-                                className="rounded-full font-jaldi shadow-inner shadow-slate-400 h-10 w-128 rounded- border border-blue px-5 py-3 bg-cream text-blue focus:outline-none focus:border-blue placeholder:text-blue placeholder:text-s"
-                                placeholder="Search..." />
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                                className="w-[300px]"
+                                placeholder="Search..."
+                            />
                             <div className="absolute inset-y-0 right-0 flex items-center pr-4">
-                                <img className="h-4" src="..\assets\images\Glass-icon.svg" />
+                                <button type="submit" className="bg-transparent border-none">
+                                    <img className="h-4" src="..\assets\images\Glass-icon.svg" alt="Search Icon" />
+                                </button>
                             </div>
-                        </div>
+                        </form>
                     )}
 
                     <button onClick={homeClick}>
@@ -63,8 +78,7 @@ const NavBar = () => {
                 </div>
             </div>
         </nav>
-    )
-}
+    );
+};
 
 export default NavBar;
-
