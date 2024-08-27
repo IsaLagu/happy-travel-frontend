@@ -6,10 +6,10 @@ const useFetch = (endpoint, options, shouldFetch = true) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const fetchData = async () => {
+  const fetchData = async (fetchOptions = undefined) => {
     setLoading(true);
     try {
-      const response = await fetch(`${API_URL}${endpoint}`, options);
+      const response = await fetch(`${API_URL}${endpoint}`, { ...options, ...fetchOptions });
       if (!response.ok) {
         throw new Error(`Error: ${response.status}`);
       }
