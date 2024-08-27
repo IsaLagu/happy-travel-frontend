@@ -5,11 +5,12 @@ import Pagination from "../components/home/Pagination";
 import useGet from "../hooks/useGet";
 
 const Home = () => {
-    const [searchParams] = useSearchParams();
+    const [searchParams, setSearchParams] = useSearchParams();
     const searchTerm = searchParams.get("search") || "";
-    const { data: destinations, loading, error } = useGet("/destinations");
+    const page = parseInt(searchParams.get("page"), 10) || 1;
+    const { data: destinations, loading, error } = useGet(`/destinations`);
     const [filteredDestinations, setFilteredDestinations] = useState([]);
-    const [currentPage, setCurrentPage] = useState(1);
+    const [currentPage, setCurrentPage] = useState(page); // Initialize with the page from URL
     const cardsPerPage = 8;
 
     useEffect(() => {
@@ -20,6 +21,17 @@ const Home = () => {
             setFilteredDestinations(filtered);
         }
     }, [destinations, searchTerm]);
+
+    useEffect(() => {
+        if (searchTerm) {
+            setCurrentPage(1); // Reset to page 1 when search term changes
+            setSearchParams({ search: searchTerm, page: 1 });
+        }
+    }, [searchTerm, setSearchParams]);
+
+    useEffect(() => {
+        setSearchParams({ search: searchTerm, page: currentPage });
+    }, [currentPage, searchTerm, setSearchParams]);
 
     if (loading) return <div className="text-blue font-bold flex justify-center">Loading...</div>;
     if (error) return <div className="flex justify-center">Error: {error}</div>;
@@ -45,7 +57,10 @@ const Home = () => {
                 <Pagination
                     totalPages={Math.ceil(filteredDestinations.length / cardsPerPage)}
                     currentPage={currentPage}
-                    setCurrentPage={setCurrentPage}
+                    setCurrentPage={(pageNumber) => {
+                        setCurrentPage(pageNumber);
+                        setSearchParams({ search: searchTerm, page: pageNumber });
+                    }}
                 />
             </div>
         </div>
