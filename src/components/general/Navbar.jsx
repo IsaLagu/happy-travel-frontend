@@ -1,13 +1,25 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import useUser from "../../hooks/useUser";
 
 const NavBar = () => {
-    const { user } = useUser()
+    const { user, clearToken } = useUser()
     const location = useLocation()
     const isHome = location.pathname === '/'
+    const navigate = useNavigate()
+
+    const homeClick = () => { navigate('/') }
+
+    const loginClick = () => { navigate('/login') };
+
+    const createClick = () => { navigate('/create-destination') }
+
+    const logoutClick = () => {
+        clearToken()
+        navigate('/logIn')
+    };
 
     return (
-        <nav className="font-jaldi font-normal bg-white ml-14 mr-14 mt-4 p-4 border-b-2 border-blue">
+        <nav className="font-jaldi font-normal bg-white ml-14 mr-14 mt-4 p-4 border-b-2 border-blue items-center">
             <div className="flex flex-wrap items-center justify-between text-white">
                 <div>
                     <img src="..\assets\images\Logo.svg" className="h-16" alt="Logo" />
@@ -27,24 +39,24 @@ const NavBar = () => {
                         </div>
                     )}
 
-                    <button>
+                    <button onClick={homeClick}>
                         <img className="h-8" src="..\assets\images\Home-icon.svg" />
-                        <Link to="/"></Link>
                     </button>
                     {!user && (
-                        <button>
+                        <button onClick={loginClick}>
                             <img className="h-8" src="..\assets\images\Avatar-icon.svg" />
-                            <Link to="/"></Link>
                         </button>)}
                     {user && (
-                        <button>
-                            <img className="h-8" src="..\assets\images\Create-icon.svg" />
-                            <Link to="/"></Link>
-                        </button>,
-                        <button>
-                            <img className="h-8" src="..\assets\images\Logout-icon.svg" />
-                            <Link to="/"></Link>
-                        </button>
+                        <div className="flex flex-wrap items-center justify-end gap-2 text-blue">
+                            <button onClick={createClick}>
+                                <img className="h-8" src="..\assets\images\Create-icon.svg" />
+                                <Link to="/create-destination"></Link>
+                            </button>
+                            <button onClick={logoutClick}>
+                                <img className="h-8" src="..\assets\images\Logout-icon.svg" />
+                            </button>
+                        </div>
+
                     )
                     }
 
