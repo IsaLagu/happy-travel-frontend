@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Input from "../components/general/Input";
 import Button from "../components/general/Button";
 import usePost from "../hooks/usePost";
 import useUser from "../hooks/useUser";
-import { useNavigate } from "react-router-dom";
 import { signUpSchema } from "../hooks/validationSchemas";
 
 const SignUp = () => {
