@@ -34,10 +34,10 @@ export const editSchema = yup.object().shape({
   
   image: yup.mixed()
     .test('fileSize', 'El archivo es demasiado grande', value => {
-      return value ? value.size <= 1024 * 1024 : true;  
+      return value ? value.size <= 5 * 1024 * 1024 : true;  
     })
     .test('fileType', 'El formato de la imagen no es válido', value => {
-      return value ? ['image/jpeg', 'image/png', 'image/gif'].includes(value.type) : true;
+      return value ? ['image/jpeg', 'image/png'].includes(value.type) : true;
     })
     .nullable()  
     .notRequired(), 
