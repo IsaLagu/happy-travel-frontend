@@ -32,7 +32,7 @@ const NavBar = () => {
 
   const logoutClick = () => {
     clearToken();
-    navigate("/login");
+    navigate("/");
   };
 
   return (
@@ -44,13 +44,14 @@ const NavBar = () => {
 
         <div className="flex flex-wrap items-center justify-end gap-3 text-blue">
           {isHome && (
-            <form onSubmit={handleSearch} className="relative flex items-center">
+            <form onSubmit={handleSearch} className="relative flex items-center ">
               <Input
                 type="text"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-[300px]"
+                className="w-[300px] h-10 font-light text-xl text-blue bg-cream shadow-inner shadow-slate-400 rounded-full border-gray-300 placeholder-blue block pl-[17px"
                 placeholder="Search..."
+                
               />
               <div className="absolute inset-y-0 right-0 flex items-center pr-4">
                 <button type="submit" className="bg-transparent border-none">
