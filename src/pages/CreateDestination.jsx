@@ -3,11 +3,9 @@ import Input from "../components/general/Input";
 import ButtonsForm from "../components/form/ButtonsForm";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { createSchema, signUpSchema } from "../hooks/validationSchemas";
+import { createSchema } from "../hooks/validationSchemas";
 import usePost from "../hooks/usePost";
 import { useNavigate } from "react-router-dom";
-import DeleteAlert from "../components/alerts/DeleteAlert";
-import { useUser } from "../context/UserContext";
 
 const CreateDestination = () => {
   const {
@@ -18,8 +16,7 @@ const CreateDestination = () => {
     resolver: yupResolver(createSchema),
   });
 
-  const { error, executePost, data } = usePost("/auth/create-destination");
-  const { setToken } = useUser();
+  const { executePost, data } = usePost("/auth/create-destination");
   const navigate = useNavigate();
 
   const onSubmit = (formData) => {
@@ -29,16 +26,14 @@ const CreateDestination = () => {
   const onCancel = () => {
     reset();
   };
+
   useEffect(() => {
     if (data) {
-      setToken(data.token);
+      // Redirigir a otra página o mostrar un mensaje de éxito
       navigate("/");
     }
-
-    if (error) {
-      alert(`Error: ${error.message || "No se pudo crear el destino"}`);
-    }
-  }, [data, setToken, navigate]);
+  }, [data, navigate]);
+  console.log(data);
 
   return (
     <div className="flex justify-center items-center mt-12 pt-32">
