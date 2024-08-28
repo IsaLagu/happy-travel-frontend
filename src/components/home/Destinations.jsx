@@ -2,14 +2,17 @@ import DestinationCard from "./DestinationCard";
 import useGet from "../../hooks/useGet";
 import { useState } from "react";
 import Pagination from "./Pagination";
+import { useNavigate } from "react-router-dom";
 
 const Destinations = () => {
-  const { data: destinations, loading, error } = useGet("/destinations");
+  const { data: destinations, loading, error, setData:setDestinations } = useGet("/destinations");
   const [currentPage, setCurrentPage] = useState(1);
   const cardsPerPage = 8;
+  const navigate = useNavigate()
+
 
   if (loading) {
-    return <div className="text-blue font-bold flex justify-center "> Loading </div>;
+    return <div className="text-blue font-bold flex justify-center p-48 "> Loading </div>;
   }
 
   if (error) {
@@ -24,6 +27,14 @@ const Destinations = () => {
   const indexOfFirstCard = indexOfLastCard - cardsPerPage;
   const currentCards = destinations.slice(indexOfFirstCard, indexOfLastCard);
 
+  const infoClick = (id) => { navigate (`/description/${id}`)}
+
+  const editClick = (id) => { navigate (`/edit-destination/${id}`)}
+
+  const deleteClick = (id) => { setDestinations((prevDestinations) => prevDestinations.filter((destination) => destination.id !== id));
+  }
+
+
   return (
     <div>
       <div className="flex flex-wrap items-center justify-between gap-6 m-9 ml-14 mr-14">
@@ -33,6 +44,10 @@ const Destinations = () => {
             title={destination.title}
             location={destination.location}
             imageUrl={destination.imageUrl}
+            onInfo={infoClick}
+            onEdit={editClick}
+            onDelete={deleteClick}
+
           />
         ))}
       </div>
