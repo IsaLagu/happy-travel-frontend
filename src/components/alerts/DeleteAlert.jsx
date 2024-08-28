@@ -1,6 +1,6 @@
 import ButtonsForm from "../form/ButtonsForm";
 
-const DeleteAlert = ({onCancel, onConfirm}) => {
+const DeleteAlert = ({onCancel, onConfirm, id}) => {
     return (
         <div className="flex justify-center items-center mt-12 p-24">
             <div className="w-[500px] h-[200px] bg-cream rounded-2xl p-10 flex flex-col items-center">
