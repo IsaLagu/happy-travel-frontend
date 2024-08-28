@@ -101,12 +101,12 @@ const CreateDestination = () => {
                 <label htmlFor="why" className="block text-xl mb-1 font-semibold text-blue">
                   ¿Por qué quieres viajar allí?
                 </label>
-                <Input
+                <textarea
                   {...register("why")}
-                  className="w-[300px] h-[372px] rounded-xl"
+                  className="w-[300px] h-[372px] rounded-xl text-pretty font-light text-xl text-blue bg-cream shadow-inner shadow-slate-400 border-gray-300 placeholder-blue block pl-[17px]"
                   name="why"
                   placeholder="Escribe tus razones..."
-                />
+                ></textarea>
                 {errors.why && <p className="text-red-500 text-sm">{errors.why.message}</p>}
               </div>
             </div>
