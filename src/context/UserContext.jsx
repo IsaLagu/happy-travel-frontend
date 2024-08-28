@@ -1,5 +1,7 @@
-import { useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
+
+const UserContext = createContext(null);
 
 const decodeToken = (token) => {
   try {
@@ -10,7 +12,7 @@ const decodeToken = (token) => {
   }
 };
 
-const useUser = () => {
+export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(() => localStorage.getItem("jwtToken"));
 
@@ -23,24 +25,19 @@ const useUser = () => {
     }
   }, [token]);
 
-  // Function to set the JWT token and update the user
   const saveToken = (newToken) => {
     localStorage.setItem("jwtToken", newToken);
     setToken(newToken);
   };
 
-  // Function to remove the JWT token (logout)
   const clearToken = () => {
     localStorage.removeItem("jwtToken");
     setToken(null);
   };
 
-  return {
-    user,
-    token,
-    setToken: saveToken,
-    clearToken,
-  };
+  return (
+    <UserContext.Provider value={{ user, token, setToken: saveToken, clearToken }}>{children}</UserContext.Provider>
+  );
 };
 
-export default useUser;
+export const useUser = () => useContext(UserContext);

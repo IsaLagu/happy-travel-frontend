@@ -5,8 +5,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import Input from "../components/general/Input";
 import Button from "../components/general/Button";
 import { loginSchema } from "../hooks/validationSchemas";
-import useUser from "../hooks/useUser";
 import usePost from "../hooks/usePost";
+import { useUser } from "../context/UserContext";
 
 const LogIn = () => {
   const {
