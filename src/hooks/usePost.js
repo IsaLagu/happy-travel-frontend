@@ -1,7 +1,16 @@
+import { useUser } from "../context/UserContext";
 import useFetch from "./useFetch";
 
 const usePost = (endpoint) => {
+  const { token } = useUser();
+
   const executePost = (data) => {
+    if (!token) {
+      console.error("No se puede ejecutar el POST: No hay token disponible.");
+      navigate("/login");
+      return;
+    }
+
     fetch({ body: JSON.stringify(data) });
   };
 
@@ -11,6 +20,7 @@ const usePost = (endpoint) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        ...(token && { Authorization: `Bearer ${token}` }),
       },
     },
     false
