@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import useUser from "../../hooks/useUser";
 import Input from "../general/Input";
+import { useUser } from "../../context/UserContext";
 
 const NavBar = () => {
   const { user, clearToken } = useUser();
