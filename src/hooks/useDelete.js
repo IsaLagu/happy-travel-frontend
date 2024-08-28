@@ -14,7 +14,7 @@ const useDelete = (endpoint) => {
         fetch({ body: JSON.stringify(data) });
     };
 
-    const { data, loading, error, fetch } = useFetch(
+    const { data, deleteLoading, deleteError, fetch } = useFetch(
         endpoint,
         {
             method: "DELETE",
@@ -26,7 +26,7 @@ const useDelete = (endpoint) => {
         false
     );
 
-    return { data, loading, error, executeDelete };
+    return { data, deleteLoading, deleteError, executeDelete };
 };
 
 export default useDelete;

@@ -4,12 +4,14 @@ import DestinationCard from "./DestinationCard";
 import useGet from "../../hooks/useGet";
 import Pagination from "./Pagination";
 import DeleteAlert from "../alerts/DeleteAlert";
+import useDelete from "../../hooks/useDelete";
 
 const Destinations = () => {
   const { data: destinations, loading, error, setData: setDestinations } = useGet("/");
   const [currentPage, setCurrentPage] = useState(1);
   const [showDeleteAlert, setShowDeleteAlert] = useState(false);
   const [selectedDestinationId, setSelectedDestinationId] = useState(null);
+  const [executeDelete, deleteLoading, deleteError] = useDelete(`/${id}`)
   const cardsPerPage = 8;
   const navigate = useNavigate();
 
@@ -43,10 +45,15 @@ const Destinations = () => {
   };
 
   const confirmDelete = () => {
-    setDestinations((prevDestinations) =>
-      prevDestinations.filter((destination) => destination.id !== selectedDestinationId)
-    );
-    setShowDeleteAlert(false);
+    if (selectedDestinationId) {
+      executeDelete(selectedDestinationId)
+      setShowDeleteAlert(false)
+      if (!loading && !error) {
+        setData((prevDestinations) =>
+          prevDestinations.filter((destination) => destination.id !== selectedDestinationId)
+        )
+      }
+    }
   };
 
   const cancelDelete = () => {
@@ -82,7 +89,7 @@ const Destinations = () => {
 
       {showDeleteAlert && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <DeleteAlert onCancel={cancelDelete} onConfirm={confirmDelete} />
+          <DeleteAlert onCancel={cancelDelete} onConfirm={confirmDelete} loading={deleteLoading} error={deleteError}/>
         </div>
       )}
     </div>
