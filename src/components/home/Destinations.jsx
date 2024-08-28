@@ -1,15 +1,17 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import DestinationCard from "./DestinationCard";
 import useGet from "../../hooks/useGet";
-import { useState } from "react";
 import Pagination from "./Pagination";
-import { useNavigate } from "react-router-dom";
+import DeleteAlert from "../alerts/DeleteAlert";
 
 const Destinations = () => {
-  const { data: destinations, loading, error, setData:setDestinations } = useGet("/destinations");
+  const { data: destinations, loading, error, setData: setDestinations } = useGet("/");
   const [currentPage, setCurrentPage] = useState(1);
+  const [showDeleteAlert, setShowDeleteAlert] = useState(false);
+  const [selectedDestinationId, setSelectedDestinationId] = useState(null);
   const cardsPerPage = 8;
-  const navigate = useNavigate()
-
+  const navigate = useNavigate();
 
   if (loading) {
     return <div className="text-blue font-bold flex justify-center p-48 "> Loading </div>;
@@ -27,16 +29,33 @@ const Destinations = () => {
   const indexOfFirstCard = indexOfLastCard - cardsPerPage;
   const currentCards = destinations.slice(indexOfFirstCard, indexOfLastCard);
 
-  const infoClick = (id) => { navigate (`/description/${id}`)}
+  const infoClick = (id) => {
+    navigate(`/description`);
+  };
 
-  const editClick = (id) => { navigate (`/edit-destination/${id}`)}
+  const editClick = (id) => {
+    navigate(`/edit-destination`);
+  };
 
-  const deleteClick = (id) => { setDestinations((prevDestinations) => prevDestinations.filter((destination) => destination.id !== id));
-  }
+  const deleteClick = (id) => {
+    setSelectedDestinationId(id);
+    setShowDeleteAlert(true);
+  };
 
+  const confirmDelete = () => {
+    setDestinations((prevDestinations) =>
+      prevDestinations.filter((destination) => destination.id !== selectedDestinationId)
+    );
+    setShowDeleteAlert(false);
+  };
+
+  const cancelDelete = () => {
+    setShowDeleteAlert(false);
+    setSelectedDestinationId(null);
+  };
 
   return (
-    <div>
+    <div className="relative">
       <div className="flex flex-wrap items-center justify-between gap-6 m-9 ml-14 mr-14">
         {currentCards.map((destination) => (
           <DestinationCard
@@ -47,7 +66,8 @@ const Destinations = () => {
             onInfo={infoClick}
             onEdit={editClick}
             onDelete={deleteClick}
-
+            setShowDeleteAlert={setShowDeleteAlert}
+            setSelectedDestinationId={setSelectedDestinationId}
           />
         ))}
       </div>
@@ -59,6 +79,12 @@ const Destinations = () => {
           setCurrentPage={setCurrentPage}
         />
       </div>
+
+      {showDeleteAlert && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <DeleteAlert onCancel={cancelDelete} onConfirm={confirmDelete} />
+        </div>
+      )}
     </div>
   );
 };
