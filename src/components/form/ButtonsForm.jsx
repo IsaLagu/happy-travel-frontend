@@ -3,8 +3,8 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 
-const ButtonsForm = ({ onSubmit }) => {
-    const navigate = useNavigate
+const ButtonsForm = ({ onSubmit, onCancel }) => {
+    const navigate = useNavigate()
 
     const accept = () => {
         onSubmit()
