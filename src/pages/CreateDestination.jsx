@@ -1,14 +1,14 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Input from "../components/general/Input";
 import ButtonsForm from "../components/form/ButtonsForm";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { createSchema, signUpSchema } from "../hooks/validationSchemas";
+import { createSchema } from "../hooks/validationSchemas";
 import usePost from "../hooks/usePost";
 import { useNavigate } from "react-router-dom";
-import DeleteAlert from "../components/alerts/DeleteAlert";
-import { useUser } from "../context/UserContext";
 
+const preset_name = "yu1h90st";
+const cloud_name = "dtftuh9ky";
 const CreateDestination = () => {
   const {
     register,
@@ -18,27 +18,44 @@ const CreateDestination = () => {
     resolver: yupResolver(createSchema),
   });
 
-  const { error, executePost, data } = usePost("/auth/create-destination");
-  const { setToken } = useUser();
+  const { executePost, data } = usePost("/destinations");
   const navigate = useNavigate();
+  const [image, setImage] = useState();
 
   const onSubmit = (formData) => {
-    executePost(formData);
+    executePost({ ...formData, image: undefined, imageUrl: image });
   };
 
   const onCancel = () => {
     reset();
   };
+
   useEffect(() => {
     if (data) {
-      setToken(data.token);
       navigate("/");
     }
+  }, [data, navigate]);
 
-    if (error) {
-      alert(`Error: ${error.message || "No se pudo crear el destino"}`);
+  const uploadImage = async (e) => {
+    const files = e.target.files;
+    const data = new FormData();
+    data.append("file", files[0]);
+    data.append("upload_preset", preset_name);
+
+    try {
+      const response = await fetch(`https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`, {
+        method: "POST",
+        body: data,
+      });
+
+      const file = await response.json();
+      setImage(file.secure_url);
+    } catch (error) {
+      console.error("Error uploading image:", error);
     }
-  }, [data, setToken, navigate]);
+  };
+
+  console.log("errors", errors);
 
   return (
     <div className="flex justify-center items-center mt-12 pt-32">
@@ -73,7 +90,13 @@ const CreateDestination = () => {
                   </label>
                 </div>
                 <div className="relative">
-                  <input type="file" id="fileInput" {...register("image")} className="hidden" accept="image/*" />
+                  <input
+                    type="file"
+                    id="fileInput"
+                    onChange={(e) => uploadImage(e)}
+                    className="hidden"
+                    accept="image/*"
+                  />
                   <div
                     className="flex w-[300px] cursor-pointer"
                     onClick={() => document.getElementById("fileInput").click()}
@@ -81,33 +104,29 @@ const CreateDestination = () => {
                     <div className="h-[40px] w-[62px] rounded-l-full bg-blue flex items-center justify-center">
                       <img className="h-6" src="..\assets\images\File-icon.svg" alt="icon" />
                     </div>
-                    <span className=" h-10 w-[300px] font-light text-xl text-blue bg-cream shadow-inner shadow-slate-400 rounded-r-full border-gray-300 placeholder-blue block pl-[17px] py-2.5">
-                      Sube una imagen ...
+                    <span className="overflow-hidden text-ellipsis h-10 w-[300px] font-light text-xl text-blue bg-cream shadow-inner shadow-slate-400 rounded-r-full border-gray-300 placeholder-blue block pl-[17px] py-2.5">
+                      {image ?? "Sube una imagen ..."}
                     </span>
                   </div>
                   {errors.image && <p className="text-red-500 text-sm">{errors.image.message}</p>}
                 </div>
               </div>
               <div className="mt-[20px]">
-                <ButtonsForm
-                  onSubmit={handleSubmit(onSubmit)}
-                  onCancel={onCancel}
-                  className="flex justify-center items-center mt-4"
-                />
+                <ButtonsForm onCancel={onCancel} className="flex justify-center items-center mt-4" />
               </div>
             </div>
             <div className="text-xl font-semibold text-blue mt-[-24px]">
               <div className="flex flex-col gap-[5px] mt-5">
-                <label htmlFor="why" className="block text-xl mb-1 font-semibold text-blue">
+                <label htmlFor="description" className="block text-xl mb-1 font-semibold text-blue">
                   ¿Por qué quieres viajar allí?
                 </label>
                 <Input
-                  {...register("why")}
+                  {...register("description")}
                   className="w-[300px] h-[372px] rounded-xl"
-                  name="why"
+                  name="description"
                   placeholder="Escribe tus razones..."
                 />
-                {errors.why && <p className="text-red-500 text-sm">{errors.why.message}</p>}
+                {errors.description && <p className="text-red-500 text-sm">{errors.description.message}</p>}
               </div>
             </div>
           </div>
