@@ -23,7 +23,7 @@ const CreateDestination = () => {
   const [image, setImage] = useState();
 
   const onSubmit = (formData) => {
-    executePost({ ...formData, imageUrl: image });
+    executePost({ ...formData, image: undefined, imageUrl: image });
   };
 
   const onCancel = () => {
@@ -35,7 +35,6 @@ const CreateDestination = () => {
       navigate("/");
     }
   }, [data, navigate]);
-  console.log(data);
 
   const uploadImage = async (e) => {
     const files = e.target.files;
@@ -55,6 +54,8 @@ const CreateDestination = () => {
       console.error("Error uploading image:", error);
     }
   };
+
+  console.log("errors", errors);
 
   return (
     <div className="flex justify-center items-center mt-12 pt-32">
@@ -92,7 +93,6 @@ const CreateDestination = () => {
                   <input
                     type="file"
                     id="fileInput"
-                    {...register("image")}
                     onChange={(e) => uploadImage(e)}
                     className="hidden"
                     accept="image/*"
@@ -112,11 +112,7 @@ const CreateDestination = () => {
                 </div>
               </div>
               <div className="mt-[20px]">
-                <ButtonsForm
-                  onSubmit={handleSubmit(onSubmit)}
-                  onCancel={onCancel}
-                  className="flex justify-center items-center mt-4"
-                />
+                <ButtonsForm onCancel={onCancel} className="flex justify-center items-center mt-4" />
               </div>
             </div>
             <div className="text-xl font-semibold text-blue mt-[-24px]">
