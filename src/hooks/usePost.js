@@ -5,11 +5,6 @@ const usePost = (endpoint) => {
   const { token } = useUser();
 
   const executePost = (data) => {
-    if (!token) {
-      console.error("No se puede ejecutar el POST: No hay token disponible.");
-      navigate("/login");
-      return;
-    }
 
     fetch({ body: JSON.stringify(data) });
   };

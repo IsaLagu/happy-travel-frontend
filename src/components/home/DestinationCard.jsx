@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useUser } from "../../context/UserContext";
 
 const DestinationCard = ({ title, location, imageUrl, onEdit, onDelete, onInfo, setShowDeleteAlert, setSelectedDestinationId }) => {
-    const user = useUser();
+    const {user} = useUser();
     const navigate = useNavigate()
 
     const infoClick = (id) => {
