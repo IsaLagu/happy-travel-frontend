@@ -44,14 +44,16 @@ const Destinations = () => {
     setShowDeleteAlert(true);
   };
 
-  const confirmDelete = () => {
+  const confirmDelete = async () => {
     if (selectedDestinationId) {
-      executeDelete(selectedDestinationId)
-      setShowDeleteAlert(false)
-      if (!loading && !error) {
-        setData((prevDestinations) =>
+      try {
+        await executeDelete(selectedDestinationId)
+        setDestinations((prevDestinations) =>
           prevDestinations.filter((destination) => destination.id !== selectedDestinationId)
         )
+        setShowDeleteAlert(false)
+      } catch (error) {
+        console.error("Failed to delete destination:", error)
       }
     }
   };
@@ -67,14 +69,13 @@ const Destinations = () => {
         {currentCards.map((destination) => (
           <DestinationCard
             key={destination.id}
+            id={destination.id}
             title={destination.title}
             location={destination.location}
             imageUrl={destination.imageUrl}
             onInfo={infoClick}
             onEdit={editClick}
             onDelete={deleteClick}
-            setShowDeleteAlert={setShowDeleteAlert}
-            setSelectedDestinationId={setSelectedDestinationId}
           />
         ))}
       </div>
@@ -89,7 +90,7 @@ const Destinations = () => {
 
       {showDeleteAlert && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <DeleteAlert onCancel={cancelDelete} onConfirm={confirmDelete} loading={deleteLoading} error={deleteError}/>
+          <DeleteAlert isOpen={showDeleteAlert} onCancel={cancelDelete} onConfirm={confirmDelete} loading={deleteLoading} error={deleteError}/>
         </div>
       )}
     </div>

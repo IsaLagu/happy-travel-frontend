@@ -1,22 +1,32 @@
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../../context/UserContext";
 
-const DestinationCard = ({ title, location, imageUrl, onEdit, onDelete, onInfo, setShowDeleteAlert, setSelectedDestinationId }) => {
+const DestinationCard = ({ title, location, imageUrl, onEdit, onDelete, onInfo }) => {
     const {user} = useUser();
     const navigate = useNavigate()
 
-    const infoClick = (id) => {
-        navigate(`/description`)
+    const infoClick = () => {
+        if (onInfo) {
+            onInfo(id);
+        } else {
+            navigate(`/description`);
+        }
     }
 
-    const editClick = (id) => {
-        navigate(`/edit-destination`)
+    const editClick = () => {
+        if (onEdit) {
+            onEdit(id)
+        } else {
+            navigate(`/edit-destination`)
+        }
     }
 
-    const deleteClick = (id) => {
-        setSelectedDestinationId(id)
-        setShowDeleteAlert(true)
-    };
+    const deleteClick = () => {
+        if (onDelete) {
+            onDelete()
+        }
+    }
+
     return (
         <div className="flex flex-col bg-cream rounded-[20px] w-[300px] h-[375px] relative">
             <div className="relative overflow-hidden bg-cover">
