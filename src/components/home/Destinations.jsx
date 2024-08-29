@@ -67,6 +67,7 @@ const Destinations = () => {
         {currentCards.map((destination) => (
           <DestinationCard
             key={destination.id}
+            id={destination.id}
             title={destination.title}
             location={destination.location}
             imageUrl={destination.imageUrl}

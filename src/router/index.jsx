@@ -5,7 +5,7 @@ import SignUp from "../pages/SignUp";
 import CreateDestination from "../pages/CreateDestination";
 import EditDestination from "../pages/EditDestination";
 import LogIn from "../pages/LogIn";
-import DestinationDescription from "../pages/DestinationDescription";
+import DestinationDetails from "../pages/DestinationDetails";
 
 const router = createBrowserRouter([
   {
@@ -17,7 +17,7 @@ const router = createBrowserRouter([
       { path: "/login", element: <LogIn /> },
       { path: "/create-destination", element: <CreateDestination /> },
       { path: "/edit-destination", element: <EditDestination /> },
-      { path: "/description", element: <DestinationDescription /> },
+      { path: "/destinations/:id", element: <DestinationDetails /> },
     ],
   },
 ]);
