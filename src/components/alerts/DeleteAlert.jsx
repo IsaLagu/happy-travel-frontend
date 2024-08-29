@@ -1,3 +1,4 @@
+import React from 'react';
 import ButtonsForm from "../form/ButtonsForm";
 
 const DeleteAlert = ({ onCancel, onConfirm, id, loading }) => {

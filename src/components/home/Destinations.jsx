@@ -44,7 +44,7 @@ const Destinations = () => {
     setShowDeleteAlert(true);
   };
 
-  const confirmDelete = () => {
+  const confirmDelete = async () => {
     if (selectedDestinationId) {
       executeDelete(`/${selectedDestinationId}`).then(() => {
         setData((prevDestinations) =>
@@ -70,6 +70,7 @@ const Destinations = () => {
           <DestinationCard
             key={destination.id}
             id={destination.id}
+            id={destination.id}
             title={destination.title}
             location={destination.location}
             imageUrl={destination.imageUrl}
@@ -90,7 +91,7 @@ const Destinations = () => {
 
       {showDeleteAlert && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <DeleteAlert onCancel={cancelDelete} onConfirm={confirmDelete} loading={deleteLoading} error={deleteError}/>
+          <DeleteAlert isOpen={showDeleteAlert} onCancel={cancelDelete} onConfirm={confirmDelete} loading={deleteLoading} error={deleteError}/>
         </div>
       )}
     </div>

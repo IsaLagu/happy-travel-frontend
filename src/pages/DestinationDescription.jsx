@@ -2,7 +2,7 @@ import React from "react";
 
 const DestinationDescription = () => {
   return (
-    <div class="font-jaldi grid grid-cols-2 gap-4 mx-auto items-center w-[1136px] h-[557px]">
+    <div className="font-jaldi grid grid-cols-2 gap-4 mx-auto items-center w-[1136px] h-[557px]">
       <div>
         <img className="rounded-lg" src="https://airgo.mx/wp-content/uploads/2022/02/Turismo-enero.jpg" alt="" />
       </div>
