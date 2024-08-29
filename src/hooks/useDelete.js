@@ -4,17 +4,7 @@ import useFetch from "./useFetch";
 const useDelete = (endpoint) => {
     const { token } = useUser();
 
-    const executeDelete = (data) => {
-        if (!token) {
-            console.error("No se puede ejecutar el DELETE: No hay token disponible.");
-            navigate("/login");
-            return;
-        }
-
-        fetch({ body: JSON.stringify(data) });
-    };
-
-    const { data, deleteLoading, deleteError, fetch } = useFetch(
+    const { data, loading, error, fetch } = useFetch(
         endpoint,
         {
             method: "DELETE",
@@ -26,7 +16,20 @@ const useDelete = (endpoint) => {
         false
     );
 
-    return { data, deleteLoading, deleteError, executeDelete };
+    const executeDelete = async (id) => {
+        if (!token) {
+            console.error("No se puede ejecutar el DELETE: No hay token disponible.");
+            return;
+        }
+
+        try {
+            await fetch(id);
+        } catch (err) {
+            console.error("Error al ejecutar DELETE:", err);
+        }
+    };
+
+    return { data, loading, error, executeDelete };
 };
 
 export default useDelete;

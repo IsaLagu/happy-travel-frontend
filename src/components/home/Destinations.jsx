@@ -7,16 +7,16 @@ import DeleteAlert from "../alerts/DeleteAlert";
 import useDelete from "../../hooks/useDelete";
 
 const Destinations = () => {
-  const { data: destinations, loading, error, setData: setDestinations } = useGet("/");
+  const { data: destinations, loading, error, setData } = useGet("/");
   const [currentPage, setCurrentPage] = useState(1);
   const [showDeleteAlert, setShowDeleteAlert] = useState(false);
   const [selectedDestinationId, setSelectedDestinationId] = useState(null);
-  const [executeDelete, deleteLoading, deleteError] = useDelete(`/${id}`)
+  const [executeDelete, deleteLoading, deleteError] = useDelete("/");
   const cardsPerPage = 8;
   const navigate = useNavigate();
 
   if (loading) {
-    return <div className="text-blue font-bold flex justify-center p-48 "> Loading </div>;
+    return <div className="text-blue font-bold flex justify-center p-48"> Cargando </div>;
   }
 
   if (error) {
@@ -24,35 +24,37 @@ const Destinations = () => {
   }
 
   if (!destinations || destinations.length === 0) {
-    return <div className="flex justify-center">No destinations available.</div>;
+    return <div className="flex justify-center">No hay destinos disponibles.</div>;
   }
 
   const indexOfLastCard = currentPage * cardsPerPage;
   const indexOfFirstCard = indexOfLastCard - cardsPerPage;
   const currentCards = destinations.slice(indexOfFirstCard, indexOfLastCard);
 
-  const infoClick = (id) => {
+  const handleInfoClick = (id) => {
     navigate(`/description`);
   };
 
-  const editClick = (id) => {
+  const handleEditClick = (id) => {
     navigate(`/edit-destination`);
   };
 
-  const deleteClick = (id) => {
+  const handleDeleteClick = (id) => {
     setSelectedDestinationId(id);
     setShowDeleteAlert(true);
   };
 
   const confirmDelete = () => {
     if (selectedDestinationId) {
-      executeDelete(selectedDestinationId)
-      setShowDeleteAlert(false)
-      if (!loading && !error) {
+      executeDelete(`/${selectedDestinationId}`).then(() => {
         setData((prevDestinations) =>
           prevDestinations.filter((destination) => destination.id !== selectedDestinationId)
-        )
-      }
+        );
+        setShowDeleteAlert(false);
+      }).catch((err) => {
+        console.error(err);
+        setShowDeleteAlert(false);
+      });
     }
   };
 
@@ -67,14 +69,13 @@ const Destinations = () => {
         {currentCards.map((destination) => (
           <DestinationCard
             key={destination.id}
+            id={destination.id}
             title={destination.title}
             location={destination.location}
             imageUrl={destination.imageUrl}
-            onInfo={infoClick}
-            onEdit={editClick}
-            onDelete={deleteClick}
-            setShowDeleteAlert={setShowDeleteAlert}
-            setSelectedDestinationId={setSelectedDestinationId}
+            onInfo={handleInfoClick}
+            onEdit={handleEditClick}
+            onDelete={handleDeleteClick}
           />
         ))}
       </div>
