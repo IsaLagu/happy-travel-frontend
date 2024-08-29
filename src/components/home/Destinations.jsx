@@ -7,11 +7,11 @@ import DeleteAlert from "../alerts/DeleteAlert";
 import useDelete from "../../hooks/useDelete";
 
 const Destinations = () => {
-  const { data: destinations, loading, error, setData } = useGet("/");
+  const { data: destinations, loading, error, setData } = useGet("/destinations/searchById");
   const [currentPage, setCurrentPage] = useState(1);
   const [showDeleteAlert, setShowDeleteAlert] = useState(false);
   const [selectedDestinationId, setSelectedDestinationId] = useState(null);
-  const [executeDelete, deleteLoading, deleteError] = useDelete("/");
+  const [executeDelete, deleteLoading, deleteError] = useDelete("/destinations/searchById");
   const cardsPerPage = 8;
   const navigate = useNavigate();
 
