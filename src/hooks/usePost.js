@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { useUser } from "../context/UserContext";
 import useFetch from "./useFetch";
 
@@ -5,9 +6,10 @@ const usePost = (endpoint) => {
   const { token } = useUser();
 
   const executePost = (data) => {
-
     fetch({ body: JSON.stringify(data) });
   };
+
+  console.log("token", token);
 
   const { data, loading, error, fetch } = useFetch(
     endpoint,
