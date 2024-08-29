@@ -1,24 +1,23 @@
-import React from "react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Input from "../components/general/Input";
 import Button from "../components/general/Button";
+import { loginSchema } from "../hooks/validationSchemas";
 import usePost from "../hooks/usePost";
-import { signUpSchema } from "../hooks/validationSchemas";
 import { useUser } from "../context/UserContext";
 
-const SignUp = () => {
+const LogIn = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(signUpSchema),
+    resolver: yupResolver(loginSchema),
   });
 
-  const { error, executePost, data } = usePost("/auth/register");
+  const { error, executePost, data } = usePost("/auth/login");
   const { setToken } = useUser();
   const navigate = useNavigate();
 
@@ -35,25 +34,17 @@ const SignUp = () => {
 
   return (
     <div className="flex justify-center mt-12 p-36">
-      <div className="w-[370px] h-[487px] px-[35px] bg-white border-4 border-cream rounded-2xl">
+      <div className="w-[370px] h-[385px] px-[35px] bg-white border-4 border-cream rounded-2xl">
         <form onSubmit={handleSubmit(onSubmit)}>
           <h5 className="text-2xl text-center pt-[10px] font-bold text-red border-red border-b-2 mb-[22px] pb-2">
-            Registro de usuario
+            Acceso de usuario
           </h5>
           <div className="flex flex-col gap-[30px]">
-            <div>
-              <label htmlFor="name" className="block mb-1 text-xl font-semibold text-blue">
-                Nombre
-              </label>
-              <Input {...register("name")} className="w-full" placeholder="Escribe tu nombre" />
-              {errors.name && <p className="text-red-500 text-sm">{errors.name.message}</p>}
-            </div>
             <div>
               <label htmlFor="email" className="block mb-1 text-xl font-semibold text-blue">
                 E-Mail
               </label>
               <Input {...register("email")} className="w-full" placeholder="Escribe tu email" />
-              {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
             </div>
             <div>
               <label htmlFor="password" className="block mb-1 text-xl font-semibold text-blue">
@@ -69,13 +60,7 @@ const SignUp = () => {
             )}
             <div className="flex flex-wrap gap-4 justify-center">
               <Button type="submit" buttonStyle="bg-green" buttonText="Aceptar" />
-              <Button type="button" onClick={() => navigate("/")} buttonStyle="bg-red" buttonText="Cancelar" />
-            </div>
-            <div className="text-xl font-semibold text-blue text-center mt-[-20px]">
-              ¿Ya tienes cuenta? Accede{" "}
-              <a href="/login" className="text-green font-semibold hover:underline">
-                aquí
-              </a>
+              <Button type="button" buttonStyle="bg-red" buttonText="Cancelar" />
             </div>
           </div>
         </form>
@@ -84,4 +69,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default LogIn;

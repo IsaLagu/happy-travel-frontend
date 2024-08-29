@@ -1,13 +1,3 @@
-<!-- # React + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
- -->
-
 # Happy Travel - Frontend
 
 Welcome to the frontend repository for **Happy Travel**! This project is a part of a web application where users can share their dream travel destinations.
@@ -107,20 +97,12 @@ To give you a better idea of what the application looks like and how it function
 ### Screenshots
 
 - **Homepage**:
-  ![Homepage Screenshot](path/to/homepage-screenshot.png)
-  *Description of the homepage, if needed.*
+![alt text](<Captura de pantalla 2024-08-29 094856.png>)
+ 
 
 - **Destination Details**:
-  ![Destination Details Screenshot](path/to/destination-details-screenshot.png)
-  *Description of the destination details page, if needed.*
+  ![alt text](<Captura de pantalla 2024-08-29 095035.png>)
 
-### Demo Video
-
-Watch the following video to see the application in action:
-
-[![Demo Video](https://img.youtube.com/vi/your-video-id/maxresdefault.jpg)](https://www.youtube.com/watch?v=your-video-id)
-
-*Replace `your-video-id` with the actual ID of your video.*
 
 ## 🧑‍🤝‍🧑 Team
 
