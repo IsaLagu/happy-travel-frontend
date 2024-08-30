@@ -7,23 +7,64 @@ import { createSchema } from "../hooks/validationSchemas";
 import usePost from "../hooks/usePost";
 import { useNavigate } from "react-router-dom";
 
-const preset_name = "yu1h90st";
-const cloud_name = "dtftuh9ky";
 const CreateDestination = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset
   } = useForm({
     resolver: yupResolver(createSchema),
   });
 
   const { executePost, data } = usePost("/destinations");
   const navigate = useNavigate();
-  const [image, setImage] = useState();
+  const [image, setImage] = useState(null);
+  const [formData, setFormData] = useState({title: "", location: "", description: "", imageUrl: null});
 
-  const onSubmit = (formData) => {
-    executePost({ ...formData, image: undefined, imageUrl: image });
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
+  };
+
+  const onSubmitForm = (evt) => {
+    evt.preventDefault();
+    
+    const data = new FormData();
+    data.append("title", formData.title);
+    data.append("location", formData.location);
+    data.append("description", formData.description);
+    data.append("imageUrl", formData.imageUrl);
+  
+    console.log(formData);
+    //executePost(formData, true); 
+
+    fetch("http://localhost:3001/destinations", {  // Asegúrate de usar el endpoint aquí
+      method: "POST",
+      body: formData,
+      mode:  'no-cors',
+      contentType: 'application/json',
+      headers: {
+        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbml0YUBtYWxpdG8uY29tIiwiaWF0IjoxNzI1MDA2MTQ5LCJleHAiOjE3MjUwMDk3NDl9.aPACKsGS2rEnNuOTfUcR4Uc8b_UlbQ81He9MnMlXZSU'
+      }
+    })
+    .then((response) => {
+      console.log(response); // Agrega esta línea para ver el contenido del `response`
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then((result) => {
+      console.log("Success:", result);
+      // Maneja la respuesta aquí, si es necesario
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+      // Maneja el error aquí, si es necesario
+    });
+
+
   };
 
   const onCancel = () => {
@@ -36,31 +77,10 @@ const CreateDestination = () => {
     }
   }, [data, navigate]);
 
-  const uploadImage = async (e) => {
-    const files = e.target.files;
-    const data = new FormData();
-    data.append("file", files[0]);
-    data.append("upload_preset", preset_name);
-
-    try {
-      const response = await fetch(`https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`, {
-        method: "POST",
-        body: data,
-      });
-
-      const file = await response.json();
-      setImage(file.secure_url);
-    } catch (error) {
-      console.error("Error uploading image:", error);
-    }
-  };
-
-  console.log("errors", errors);
-
   return (
     <div className="flex justify-center items-center mt-12 pt-32">
       <div className="w-[733px] h-[509px] px-[35px] bg-white border-4 border-cream rounded-2xl">
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form id="form-destination" onSubmit={onSubmitForm} method="post">
           <h5 className="text-2xl text-center pt-[10px] font-bold text-red border-red border-b-2 mb-[22px] pb-2">
             Crear destino
           </h5>
@@ -68,15 +88,20 @@ const CreateDestination = () => {
             <div className="flex flex-col gap-[30px] items-center">
               <div>
                 <label className="block mb-1 text-xl font-semibold text-blue">Título</label>
-                <Input {...register("title")} className="w-[300px]" name="title" placeholder="Escribe tu título" />
+                <input 
+                  value={formData.title}
+                  onChange={handleChange}
+                  className="w-[300px]" 
+                  name="title" placeholder="Escribe tu título" 
+                />
                 {errors.title && <p className="text-red-500 text-sm">{errors.title.message}</p>}
               </div>
               <div>
                 <label htmlFor="location" className="block mb-1 text-xl font-semibold text-blue">
                   Ubicación
                 </label>
-                <Input
-                  {...register("location")}
+                <input
+                  onChange={handleChange}
                   className="w-[300px]"
                   name="location"
                   placeholder="Escribe la ubicación"
@@ -92,27 +117,25 @@ const CreateDestination = () => {
                 <div className="relative">
                   <input
                     type="file"
-                    id="fileInput"
-                    onChange={(e) => uploadImage(e)}
-                    className="hidden"
-                    accept="image/*"
+                    id="imageUrl"
+                    name="imageUrl"
+                    onChange={handleChange}
+                    accept="image/*"  // Muestra el nombre de la imagen seleccionada
                   />
-                  <div
-                    className="flex w-[300px] cursor-pointer"
-                    onClick={() => document.getElementById("fileInput").click()}
-                  >
+                  <div className="flex w-[300px] cursor-pointer">
                     <div className="h-[40px] w-[62px] rounded-l-full bg-blue flex items-center justify-center">
                       <img className="h-6" src="..\assets\images\File-icon.svg" alt="icon" />
                     </div>
                     <span className="overflow-hidden text-ellipsis h-10 w-[300px] font-light text-xl text-blue bg-cream shadow-inner shadow-slate-400 rounded-r-full border-gray-300 placeholder-blue block pl-[17px] py-2.5">
-                      {image ?? "Sube una imagen ..."}
+                      {image || "Sube una imagen ..."}
                     </span>
                   </div>
-                  {errors.image && <p className="text-red-500 text-sm">{errors.image.message}</p>}
+                  {errors.imageUrl && <p className="text-red-500 text-sm">{errors.imageUrl.message}</p>}
                 </div>
               </div>
               <div className="mt-[20px]">
-                <ButtonsForm onCancel={onCancel} className="flex justify-center items-center mt-4" />
+                <button className="bg-green">Aceptar</button>
+                <button type="reset" className="bg-red">Cancelar</button>
               </div>
             </div>
             <div className="text-xl font-semibold text-blue mt-[-24px]">
@@ -120,8 +143,8 @@ const CreateDestination = () => {
                 <label htmlFor="description" className="block text-xl mb-1 font-semibold text-blue">
                   ¿Por qué quieres viajar allí?
                 </label>
-                <Input
-                  {...register("description")}
+                <input
+                  onChange={handleChange}
                   className="w-[300px] h-[372px] rounded-xl"
                   name="description"
                   placeholder="Escribe tus razones..."
