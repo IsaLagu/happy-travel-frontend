@@ -1,9 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../../context/UserContext";
+import useDelete from "../../hooks/useDelete";
 
-const DestinationCard = ({ id, title, location, imageUrl, setShowDeleteAlert, setSelectedDestinationId }) => {
+const DestinationCard = ({ id, title, location, imageUrl }) => {
   const { user } = useUser();
   const navigate = useNavigate();
+
+  const { executeDelete, deleteLoading, deleteError } = useDelete(`/destinations?id=${id}`);
 
   const infoClick = () => {
     navigate(`/destinations/${id}`);
@@ -14,9 +17,11 @@ const DestinationCard = ({ id, title, location, imageUrl, setShowDeleteAlert, se
   };
 
   const deleteClick = () => {
-    setSelectedDestinationId(id);
-    setShowDeleteAlert(true);
+    if (window.confirm("¿Estás seguro de que deseas eliminar este destino?")) {
+      executeDelete(id);
+    }
   };
+
   return (
     <div className="flex flex-col bg-cream rounded-[20px] w-[300px] h-[375px] relative">
       <div className="relative overflow-hidden bg-cover">
@@ -43,6 +48,10 @@ const DestinationCard = ({ id, title, location, imageUrl, setShowDeleteAlert, se
         </div>
         <p className="font-jaldi text-blue text-[20px] mt-[-5px]">{location}</p>
       </div>
+      {/* Si deleteLoading está true, puedes mostrar un spinner o mensaje de cargando */}
+      {deleteLoading && <p>Eliminando...</p>}
+      {/* Muestra error si existe */}
+      {deleteError && <p>Error al eliminar el destino.</p>}
     </div>
   );
 };
