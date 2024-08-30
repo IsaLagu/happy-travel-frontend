@@ -70,7 +70,6 @@ const Destinations = () => {
           <DestinationCard
             key={destination.id}
             id={destination.id}
-            id={destination.id}
             title={destination.title}
             location={destination.location}
             imageUrl={destination.imageUrl}

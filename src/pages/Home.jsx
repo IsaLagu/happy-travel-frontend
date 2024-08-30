@@ -6,19 +6,18 @@ import useGet from "../hooks/useGet";
 import useDelete from "../hooks/useDelete";
 import DestinationCard from "../components/home/DestinationCard";
 
-const Home = () => {
+const Home = ({id}) => {
     const [searchParams, setSearchParams] = useSearchParams();
     const searchTerm = searchParams.get("search") || "";
     const page = parseInt(searchParams.get("page"), 10) || 1;
-    const { data: destinations, loading, error } = useGet(`/destinations`);
+    const { data: destinations, loading, error } = useGet(`/destinations?searchById?id=${id}`);
     const [filteredDestinations, setFilteredDestinations] = useState([]);
     const [currentPage, setCurrentPage] = useState(page);
     const [showDeleteAlert, setShowDeleteAlert] = useState(false);
     const [selectedDestinationId, setSelectedDestinationId] = useState(null);
     const cardsPerPage = 8;
 
-    // Usa el hook useDelete
-    const { executeDelete, loading: deleteLoading, error: deleteError } = useDelete('/destinations');
+    const { executeDelete, loading: deleteLoading, error: deleteError } = useDelete(`/destinations?id=${id}`);
 
     useEffect(() => {
         if (destinations) {
@@ -96,6 +95,7 @@ const Home = () => {
                     onConfirm={confirmDelete}
                     id={selectedDestinationId}
                     loading={deleteLoading}
+                    error={deleteError}
                 />
             )}
         </div>
