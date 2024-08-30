@@ -1,0 +1,16 @@
+/*Bold*/
+
+@font-face {
+    font-family: 'Jaldi';
+    src: url('../assets/fonts/Jaldi-Bold.ttf') format ('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+/* Regular */
+@font-face {
+    font-family: 'Poppins';
+    src: url('../assets/fonts/Jaldi-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
