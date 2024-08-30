@@ -97,11 +97,11 @@ To give you a better idea of what the application looks like and how it function
 ### Screenshots
 
 - **Homepage**:
-![alt text](<Captura de pantalla 2024-08-29 094856.png>)
+![alt text](<imagereadme1.png>)
  
 
 - **Destination Details**:
-  ![alt text](<Captura de pantalla 2024-08-29 095035.png>)
+  ![alt text](<imagereadme2.png>)
 
 
 ## 🧑‍🤝‍🧑 Team
